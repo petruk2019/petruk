@@ -48,3 +48,69 @@ int panjang(char *word){
 	}	
 	return x;
 }
+void pencarian (char *(word)){
+int banyak =0;
+	for (int baris=0;baris<15;baris++){
+		for (int kolom=0;kolom<15;kolom++){
+			int ada[8] = {0,0,0,0,0,0,0,0};
+			if (*(*(puzzle+baris)+kolom) == *(word+0)){
+				for(int i=1;i<=panjang(word);i++){
+					if (baris <(15-panjang(word)))
+					if (*(*(puzzle+(baris+i))+kolom) == *(word+i)) ada[0]++;
+					
+					if (baris >=(0+panjang(word)))
+					if (*(*(puzzle+(baris-i))+kolom) == *(word+i)) ada[1]++; 
+					
+					if (kolom <(15-panjang(word)))
+					if (*(*(puzzle+baris)+(kolom+i)) == *(word+i)) ada[2]++;
+					
+					if (kolom >=(0+panjang(word)))
+					if (*(*(puzzle+baris)+(kolom-i)) == *(word+i)) ada[3]++;
+					
+					if (baris <(15-panjang(word)) && kolom <(15-panjang(word))) 
+					if (*(*(puzzle+(baris+i))+(kolom+i)) == *(word+i)) ada[4]++;
+					
+					if (baris <(15-panjang(word)) && kolom >=(0+panjang(word)))
+					if (*(*(puzzle+(baris+i))+(kolom-i)) == *(word+i)) ada[5]++;
+					
+					if (baris >=(0+panjang(word)) && kolom <(15-panjang(word)))
+					if (*(*(puzzle+(baris-i))+(kolom+i)) == *(word+i)) ada[6]++;
+					
+					if (baris >=(0+panjang(word)) && kolom >=(0+panjang(word)))
+					if (*(*(puzzle+(baris-i))+(kolom-i)) == *(word+i)) ada[7]++;
+				}
+			
+				if (panjang(word) == 0){
+					banyak++;
+				}
+			
+				else {
+					for(int l=0;l<8;l++){
+						if (ada[l] == panjang(word)) banyak++;
+					}
+				}
+			}
+		}
+	}		
+
+	if (banyak != 0 ) cout<<"ada\n";
+	else cout<<"tidak ada \n";	}
+int main(){
+
+hurufacak();	
+int kata;
+cout<<"\n\nmasukan jumlah kata yg dicari = ";cin>>kata;
+char word[kata][15];
+	for (int i=0;i<kata;i++)
+	{
+		cout<<"kata yg ingin dicari = ";
+		cin>>word[i];
+		panjang(*(word+i));
+	}
+
+	for (int i=0;i<kata;i++) 
+	{
+		atas(*(word+i));
+		pencarian(*(word+i));
+	}	
+}
