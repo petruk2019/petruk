@@ -1,0 +1,2 @@
+# petruk
+program pencarian kata
